@@ -20,7 +20,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="tb_product", schema = "curso",uniqueConstraints = @UniqueConstraint(name = "pkProduct", columnNames = {"id"}))
+@Table(name="tb_product", schema = "curso")
+//@Table(name="tb_product", schema = "curso",uniqueConstraints = @UniqueConstraint(name = "pkProduct", columnNames = {"id"}))
 public class Product implements Serializable{
 	private static final long serialVersionUID = 1L;
 

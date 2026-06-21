@@ -13,10 +13,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="tb_category", schema = "curso",uniqueConstraints = @UniqueConstraint(name = "pkCategory", columnNames = {"id"}))
+@Table(name="tb_category", schema = "curso")
+//@Table(name="tb_category", schema = "curso",uniqueConstraints = @UniqueConstraint(name = "pkCategory", columnNames = {"id"}))
 public class Category implements Serializable{
 	private static final long serialVersionUID = 1L;
 

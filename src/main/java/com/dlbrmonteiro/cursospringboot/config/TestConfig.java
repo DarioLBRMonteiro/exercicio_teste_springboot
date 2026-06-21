@@ -1,6 +1,5 @@
 package com.dlbrmonteiro.cursospringboot.config;
 
-import com.dlbrmonteiro.cursospringboot.repositories.OrderItemRepository;
 import java.time.Instant;
 import java.util.Arrays;
 
@@ -12,10 +11,12 @@ import org.springframework.context.annotation.Profile;
 import com.dlbrmonteiro.cursospringboot.entities.Category;
 import com.dlbrmonteiro.cursospringboot.entities.Order;
 import com.dlbrmonteiro.cursospringboot.entities.OrderItem;
+import com.dlbrmonteiro.cursospringboot.entities.Payment;
 import com.dlbrmonteiro.cursospringboot.entities.Product;
 import com.dlbrmonteiro.cursospringboot.entities.User;
 import com.dlbrmonteiro.cursospringboot.entities.enums.OrderStatus;
 import com.dlbrmonteiro.cursospringboot.repositories.CategoryRepository;
+import com.dlbrmonteiro.cursospringboot.repositories.OrderItemRepository;
 import com.dlbrmonteiro.cursospringboot.repositories.OrderRepository;
 import com.dlbrmonteiro.cursospringboot.repositories.ProductRepository;
 import com.dlbrmonteiro.cursospringboot.repositories.UserRepository;
@@ -86,6 +87,11 @@ public class TestConfig implements CommandLineRunner{
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2026-06-20T20:53:07Z"),o1);		
+		o1.setPayment(pay1);
+		orderRepository.save(o1);
+		
 		
 	}
 }
