@@ -26,4 +26,8 @@ public class UserService {
 		User user = repository.findById(id).orElseThrow();
 		return user;
 	}
+	
+	public User insert(User obj) {
+		return repository.save(obj);		
+	}
 }
