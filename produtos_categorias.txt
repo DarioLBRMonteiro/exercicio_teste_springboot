@@ -1,0 +1,10 @@
+{
+ "name": "Manga",
+ "description": "Manga espada",
+ "price": 25.0,
+ "imgUrl": ""
+} 
+
+{
+ "name":"Fruits"
+}
