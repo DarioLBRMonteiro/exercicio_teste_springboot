@@ -30,14 +30,12 @@ public class UserResource {
 		List<User> list = service.findAll();
 		
 		return ResponseEntity.ok().body(list); 	// codigo de status http 200
-
 	}
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id){
 		User obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);	// codigo de status http 200
-
 	}
 	
 	@PostMapping()
@@ -45,7 +43,6 @@ public class UserResource {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj); 	// codigo de status http 201
-
 	}
 	
 	@DeleteMapping(value="/{id}")
