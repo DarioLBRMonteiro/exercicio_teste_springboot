@@ -29,31 +29,34 @@ public class UserResource {
 	public ResponseEntity<List<User>> findAll(){
 		List<User> list = service.findAll();
 		
-		return ResponseEntity.ok().body(list);
+		return ResponseEntity.ok().body(list); 	// codigo de status http 200
+
 	}
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id){
 		User obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);		
+		return ResponseEntity.ok().body(obj);	// codigo de status http 200
+
 	}
 	
 	@PostMapping()
 	public ResponseEntity<User> insert(@RequestBody User obj){
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+		return ResponseEntity.created(uri).body(obj); 	// codigo de status http 201
+
 	}
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.noContent().build();   // codigo de status http 204
 	}
 	
 	@PutMapping(value="/{id}")
 	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj){
 		obj = service.update(id, obj);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(obj);  // codigo de status http 200
 	}	
 }
