@@ -7,8 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.dlbrmonteiro.cursospringboot.entities.Category;
 import com.dlbrmonteiro.cursospringboot.entities.Product;
+import com.dlbrmonteiro.cursospringboot.repositories.CategoryRepository;
 import com.dlbrmonteiro.cursospringboot.repositories.ProductRepository;
 import com.dlbrmonteiro.cursospringboot.services.exceptions.DatabaseException;
 import com.dlbrmonteiro.cursospringboot.services.exceptions.ResourceNotFoundException;
@@ -19,10 +22,13 @@ import jakarta.persistence.EntityNotFoundException;
 public class ProductService {
 	
 	@Autowired
-	private ProductRepository repository;
+	private ProductRepository productRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	public List<Product> findAll(){
-		return repository.findAll();
+		return productRepository.findAll();
 	}
 	
 	public Product findById(Long id) {
@@ -32,12 +38,12 @@ public class ProductService {
 //		Product product = repository.findById(id).orElseThrow();
 //		return product;
 		
-		Optional<Product> obj = repository.findById(id);	
+		Optional<Product> obj = productRepository.findById(id);	
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));						
 	}
 	
 	public Product insert(Product obj) {
-		return repository.save(obj); // codigo de status http 200
+		return productRepository.save(obj); // codigo de status http 200
 	}
 	
 	public void delete(Long id) {
@@ -45,7 +51,7 @@ public class ProductService {
 //			if (!repository.existsById(id))
 //				throw new ResourceNotFoundException(id);
 			if (findById(id) != null) 
-				repository.deleteById(id);
+				productRepository.deleteById(id);
 		} catch (ResourceNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		} catch (DataIntegrityViolationException e) {
@@ -55,9 +61,9 @@ public class ProductService {
 	
 	public Product update(Long id, Product product) {
 		try {
-			Product entity = repository.getReferenceById(id);
+			Product entity = productRepository.getReferenceById(id);
 			updateData(entity,product);
-			return repository.save(entity);
+			return productRepository.save(entity);
 		}catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}		
@@ -67,5 +73,20 @@ public class ProductService {
 		entity.setName(obj.getName());
 		entity.setDescription(obj.getDescription());
 		entity.setImgUrl(obj.getImgUrl());
-	}	
+	}
+	
+	@Transactional
+    public Product associateCategory(Long productId, Long categoryId) {
+        // 1. Busca o produto	
+		Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException(productId));
+
+        // 2. Busca a categoria
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(categoryId));
+
+        // 3. Associa a categoria ao produto
+        product.getCategories().add(category);
+
+        // 4. Salva e retorna o produto atualizado
+        return productRepository.save(product);
+    }	
 }

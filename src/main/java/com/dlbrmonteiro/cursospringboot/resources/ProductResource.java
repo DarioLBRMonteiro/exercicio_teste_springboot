@@ -57,4 +57,13 @@ public class ProductResource {
 		return ResponseEntity.ok().body(obj);  // codigo de status http 200
 	}	
 	
+	@PutMapping("/{id}/categories/{categoryId}")
+    public ResponseEntity<Product> associateCategory(
+            @PathVariable Long id, 
+            @PathVariable Long categoryId) {
+        
+        Product productAtual = service.associateCategory(id, categoryId);
+        
+        return ResponseEntity.ok().body(productAtual);
+    }	
 }
