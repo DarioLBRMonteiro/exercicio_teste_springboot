@@ -89,4 +89,25 @@ public class ProductService {
         // 4. Salva e retorna o produto atualizado
         return productRepository.save(product);
     }	
+	
+	
+	@Transactional
+    public Product associateCategories(Long productId, List<Long> categoriesIds) {
+        // 1. Busca o produto	
+		Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException(productId));
+
+		Category category = new Category();
+		
+        for (Long catId : categoriesIds) {
+            // 2. Busca a categoria
+            category = categoryRepository.findById(catId).orElseThrow(() -> new ResourceNotFoundException(catId));
+        	        	
+            // 3. Associa a categoria ao produto
+            product.getCategories().add(category);        	
+        }
+
+        // 4. Salva e retorna o produto atualizado
+        return productRepository.save(product);
+    }	
+	
 }

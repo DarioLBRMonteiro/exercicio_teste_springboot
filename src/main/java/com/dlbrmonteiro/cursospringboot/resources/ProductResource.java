@@ -66,4 +66,15 @@ public class ProductResource {
         
         return ResponseEntity.ok().body(productAtual);
     }	
+	
+	@PutMapping("/{id}/categories")
+    public ResponseEntity<Product> associateCategories(
+            @PathVariable Long id, 
+            @RequestBody List<Long> categoriesIds) {
+        
+        Product productAtual = service.associateCategories(id, categoriesIds);
+        
+        return ResponseEntity.ok().body(productAtual);
+    }	
+	
 }
