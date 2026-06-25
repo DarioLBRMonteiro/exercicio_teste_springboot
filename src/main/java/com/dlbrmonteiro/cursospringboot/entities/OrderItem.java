@@ -8,11 +8,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 
 @Entity
 //@Table(name = "tb_order_item", schema = "curso", uniqueConstraints = @UniqueConstraint(name = "pkOrderItem", columnNames = {"order_id","product_id"}))
-@Table(name = "tb_order_item", schema = "curso")
+@Table(name = "tb_order_item", schema = "curso", indexes = @Index(name = "pkOrderItem", columnList = "order_id,product_id", unique=true))
 public class OrderItem implements Serializable{
 	private static final long serialVersionUID = 1L;
 

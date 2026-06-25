@@ -11,11 +11,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="tb_category", schema = "curso")
+@Table(name="tb_category", schema = "curso", indexes = {@Index(name="pkCategory", columnList="id", unique=true)})
 //@Table(name="tb_category", schema = "curso",uniqueConstraints = @UniqueConstraint(name = "pkCategory", columnNames = {"id"}))
 public class Category implements Serializable{
 	private static final long serialVersionUID = 1L;

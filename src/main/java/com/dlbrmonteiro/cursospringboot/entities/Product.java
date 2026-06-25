@@ -12,6 +12,7 @@ import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -20,7 +21,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="tb_product", schema = "curso")
+@Table(name="tb_product", schema = "curso",indexes = @Index(name = "pkProduct", columnList = "id", unique=true))
 //@Table(name="tb_product", schema = "curso",uniqueConstraints = @UniqueConstraint(name = "pkProduct", columnNames = {"id"}))
 public class Product implements Serializable{
 	private static final long serialVersionUID = 1L;

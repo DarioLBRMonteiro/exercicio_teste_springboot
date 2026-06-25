@@ -11,11 +11,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="tb_user", schema = "curso")
+@Table(name="tb_user", schema = "curso", indexes = {@Index(name="pkUser", columnList="id", unique=true)})
 //@Table(name="tb_user", schema = "curso",uniqueConstraints = @UniqueConstraint(name = "pkUser", columnNames = {"id"}))
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
